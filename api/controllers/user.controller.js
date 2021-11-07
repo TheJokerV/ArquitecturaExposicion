@@ -2,13 +2,20 @@ import user from '../models/user.model.js';
 
 export const createUser = async (req,res) => {
 
-    const {name, lastName, username, addres, age} = req.body;
+    const {name, lastName, username, email,password, age} = req.body;
 
-    const newUser = new user({name, lastName, username, addres, age});
+    const newUser_uc = new user ({
+        name,
+        lastName,
+        username,
+        email,
+        age,
+        password: await user.encryptPassword(password)
+    })
 
-    const userSaved = await newUser.save();
+    const userSaved_uc = await newUser_uc.save();
 
-    res.status(201).json(userSaved);
+    res.status(201).json(userSaved_uc);
 
 }
 
@@ -19,21 +26,21 @@ export const getUser = async (req,res) => {
 }
 
 export const getUserByID = async (req,res) => {
-const userID = await user.findById(req.params.userById);
-res.status(200).json(userID);
+const user_ID = await user.findById(req.params.userID);
+res.status(200).json(user_ID);
     
 }
 
 export const updateUserByID = async (req,res) => {
-    const userUPD = await user.findByIdAndUpdate(req.params.userById, req.body,{new: true});
+    const user_UPD = await user.findByIdAndUpdate(req.params.userID, req.body,{new: true});
     
-    res.status(204).json(userUPD);
+    res.status(200).json(user_UPD);
     
 }
 
-// TE QUEDASTE AQUI
-
 export const DeleteUserById = async (req,res) => {
-
+    await user.findByIdAndDelete(req.params.userID);
     
+    res.status(204).json;
+
 }

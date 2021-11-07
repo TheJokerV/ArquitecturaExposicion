@@ -1,16 +1,17 @@
 import {Router} from "express";
+import * as userCtrl from '../controllers/user.controller.js';
+import { authJWT } from "../middlewares/index.js";
+
 const router = Router();
 
-import * as userCtrl from '../controllers/user.controller.js';
-
-router.post('/', userCtrl.createUser);
+router.post('/', [authJWT.verifyToken], userCtrl.createUser);
 
 router.get('/', userCtrl.getUser);
 
-router.get('/:productID', userCtrl.getUserByID);
+router.get('/:userID', userCtrl.getUserByID);
 
-router.put('/productID', userCtrl.updateUserByID);
+router.put('/:userID',[authJWT.verifyToken], userCtrl.updateUserByID);
 
-router.delete('/productID', userCtrl.DeleteUserById);
+router.delete('/:userID', [authJWT.verifyToken], userCtrl.DeleteUserById);
 
 export default router;
