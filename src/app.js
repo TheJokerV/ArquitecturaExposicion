@@ -1,9 +1,7 @@
 import express from "express";
-import morgan from "morgan";
-import mongoose from "mongoose";
 
-import userRoutes from '../api/routes/user.route.js';
-import authRoutes from '../api/routes/auth.route.js';
+import userRoutes from '../api/routes/user.route/user.route.js';
+import authRoutes from '../api/routes/auth.route/auth.route.js';
 
 const app = express();
 app.use(express.json());
