@@ -1,10 +1,10 @@
 import {Router} from "express";
 import * as userCtrl from '../../controllers/user.controller/user.controller.js';
-import { authJWT, checkDup } from "../../middlewares/index.js";
+import { authJWT, checkDup, isAdmin } from "../../middlewares/index.js";
 
 const router = Router();
 
-router.post('/', [authJWT.verifyToken, checkDup.checkDuplicateUsernameorEmail], userCtrl.createUser);
+router.post('/', [authJWT.verifyToken,isAdmin.isAdmin, checkDup.checkDuplicateUsernameorEmail], userCtrl.createUser);
 
 router.get('/', userCtrl.getUser);
 
