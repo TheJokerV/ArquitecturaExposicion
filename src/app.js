@@ -11,5 +11,13 @@ app.use(express.json());
 app.use('/api/user',userRoutes);
 app.use('/api/auth',authRoutes);
 
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, ()=>{
+
+    const url = `http://localhost: ${PORT}/`
+    console.log(`Listenig on ${url}`)
+})
+
 export default app;
 
